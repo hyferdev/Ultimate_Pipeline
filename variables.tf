@@ -19,7 +19,7 @@ variable "instance_type" {
 variable "ami" {
   description = "AMI for CICD isntance"
   type    = string
-  default = "ami-002829755fa238bfa"
+  default = "ami-03f65b8614a860c29"
 }
 
 variable "keys" {
