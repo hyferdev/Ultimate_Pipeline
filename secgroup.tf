@@ -1,7 +1,7 @@
-# Security group for Argo instance
+# Security group for CICD instance
 resource "aws_security_group" "cicd_sg" {
   name        = "cicd_sg"
-  description = "Allow traffic on port 22 and port 8080"
+  description = "Allow traffic to ports 8080, 8010, & 9000"
   vpc_id     = aws_vpc.cicd_vpc.id
   
   ingress {
@@ -13,7 +13,7 @@ resource "aws_security_group" "cicd_sg" {
   }
 
   ingress {
-    description = "Argo will be accessed on 8080"
+    description = "CICD will be accessed on 8080"
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
@@ -21,9 +21,17 @@ resource "aws_security_group" "cicd_sg" {
   }
 
   ingress {
-    description = "Test"
-    from_port   = 443
-    to_port     = 443
+    description = "SonarQube accessed on 9000"
+    from_port   = 9000
+    to_port     = 9000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Maven accessed on 8010"
+    from_port   = 8010
+    to_port     = 8010
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
