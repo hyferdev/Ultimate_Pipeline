@@ -29,6 +29,15 @@ resource "aws_instance" "cicd_instance" {
     sudo usermod -aG docker ubuntu
     su ubuntu -c "docker build -t ultimate-cicd-pipeline:v1 /Jenkins-Zero-To-Hero/java-maven-sonar-argocd-helm-k8s/spring-boot-app/"
     su ubuntu -c "docker run -d -p 8010:8080 -t ultimate-cicd-pipeline:v1"
+    sudo apt install unzip
+    sudo adduser --disabled-password --gecos "" sonarqube
+    wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.4.0.54424.zip
+    unzip sonarqube-9.4.0.54424.zip
+    rm -rf sonarqube-9.4.0.54424.zip
+    chmod -R 755 /sonarqube-9.4.0.54424
+    chown -R sonarqube:sonarqube /sonarqube-9.4.0.54424
+    mv /sonarqube-9.4.0.54424 /home/sonarqube/
+    su sonarqube -c "/home/sonarqube/sonarqube-9.4.0.54424/bin/linux-x86-64/sonar.sh start"
     EOF
   user_data_replace_on_change = true
   tags = {
