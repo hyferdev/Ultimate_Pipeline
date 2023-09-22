@@ -1,2 +1,3 @@
 .terraform/providers/
-
+hostedzone.tf
+loadbalancer.tf 

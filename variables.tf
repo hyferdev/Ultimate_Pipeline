@@ -10,6 +10,12 @@ variable "zone" {
   default     = "us-west-2b"
 }
 
+variable "zone2" {
+   description = "AWS Availability Zone"
+   type        = string
+   default     = "us-west-2a"
+}
+
 variable "instance_type" {
   description = "Instance CICD runs on (2 core min)"
   type    = string
@@ -27,3 +33,15 @@ variable "keys" {
   type    = string
   default = "RedKeys"
 }
+
+/* Future project
+variable "hzoneid" {
+  description = "Hosted Zone ID defined in Terraform Cloud"
+}
+
+variable "domain_name" {
+  description = "The main domain name"
+  type        = string
+  default     = "desire-projects.com"
+}
+*/

@@ -31,12 +31,11 @@ resource "aws_instance" "cicd_instance" {
     su ubuntu -c "docker run -d -p 8010:8080 -t ultimate-cicd-pipeline:v1"
     sudo apt install unzip
     sudo adduser --disabled-password --gecos "" sonarqube
-    wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.4.0.54424.zip
+    cd /home/sonarqube && sudo wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.4.0.54424.zip
     unzip sonarqube-9.4.0.54424.zip
-    rm -rf sonarqube-9.4.0.54424.zip
-    chmod -R 755 /sonarqube-9.4.0.54424
-    chown -R sonarqube:sonarqube /sonarqube-9.4.0.54424
-    mv /sonarqube-9.4.0.54424 /home/sonarqube/
+    sudo chmod -R 755 /home/sonarqube/sonarqube-9.4.0.54424
+    sudo chown -R sonarqube:sonarqube /home/sonarqube/sonarqube-9.4.0.54424
+    rm sonarqube-9.4.0.54424.zip
     su sonarqube -c "/home/sonarqube/sonarqube-9.4.0.54424/bin/linux-x86-64/sonar.sh start"
     EOF
   user_data_replace_on_change = true
@@ -44,3 +43,24 @@ resource "aws_instance" "cicd_instance" {
     Name = "CICD_EC2"
   }
 }
+
+/* Future project
+# Register instance to app load balancer
+resource "aws_lb_target_group_attachment" "jenkins_target_attachment" {
+  target_group_arn = aws_lb_target_group.jenkins_8080.arn
+  target_id        = aws_instance.cicd_instance.id
+  port             = 8080
+}
+
+resource "aws_lb_target_group_attachment" "sonarqube_target_attachment" {
+   target_group_arn = aws_lb_target_group.sonarqube_9000.arn
+   target_id        = aws_instance.cicd_instance.id
+   port             = 9000
+ }
+
+resource "aws_lb_target_group_attachment" "maven_target_attachment" {
+   target_group_arn = aws_lb_target_group.maven_8010.arn
+   target_id        = aws_instance.cicd_instance.id
+   port             = 8010
+ }
+*/
