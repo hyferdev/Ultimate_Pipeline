@@ -1,7 +1,7 @@
 # Ultimate_Pipelin
 -- Working on adding load balancer and hosted zone to the configuration --
 
-This Terraform configuration automates the setup of a CICD pipeline using Jenkins, Docker, and SonarQube. *Not implemented - We will utilize ArgoCD to pull images to a Kubernetes cluster. The following steps outline how to finalize the setup:
+This Terraform configuration automates the setup of a CICD pipeline using Jenkins, Docker, and SonarQube. *Not yet implemented - We will utilize ArgoCD to pull images to a Kubernetes cluster. The following steps outline how to finalize the setup:
 
 ## Prerequisites
 - Terraform installed on your local machine.
@@ -9,7 +9,57 @@ This Terraform configuration automates the setup of a CICD pipeline using Jenkin
 - An EC2 instance where Jenkins, Docker, and SonarQube will be deployed.
 - A GitHub repository containing the code to be built and deployed.
 
-## Steps
+## Terraform Deployment
+
+1. Clone this repository to your local machine:
+
+   ```bash
+   git clone https://github.com/hyferdev/Ultimate_Pipeline
+   ```
+
+2. Navigate to the cloned directory:
+
+   ```bash
+   cd Ultimate_Pipeline
+   ```
+
+3. Review the Terraform configuration files in the `terraform` directory. Modify the files as per your requirements, such as the cloud provider, region, cluster size, or any other desired configuration.
+
+4. Initialize Terraform and download the necessary provider plugins:
+
+
+   ```bash
+   terraform init
+   ```
+
+5. Review and validate the Terraform execution plan:
+
+   ```bash
+   terraform plan
+   ```
+
+   Ensure that the plan output matches your expectations and that no errors or warnings are present.
+
+6. Apply the Terraform configuration to create the Kubernetes cluster:
+
+   ```bash
+   terraform apply
+   ```
+
+   Confirm the deployment by typing `yes` when prompted. The provisioning process may take several minutes, depending on your infrastructure size.
+
+## Cleaning Up
+
+To remove the Jenkins VM and associated resources, you can use Terraform to destroy the infrastructure:
+
+```bash
+terraform destroy
+```
+
+When prompted, type `yes` to confirm the destruction. Be cautious, as this action is irreversible and will delete all resources created by Terraform.
+
+
+## Jenkins Steps
 
 1. **Create Admin Account in Jenkins:**
 
@@ -48,6 +98,8 @@ This Terraform configuration automates the setup of a CICD pipeline using Jenkin
    - Repo URL: `https://github.com/hyferdev/Jenkins-Zero-To-Hero`
    - Branch: `*/main`
    - Jenkinsfile path: `java-maven-sonar-argocd-helm-k8s/spring-boot-app/Jenkinsfile`
+  
+Done! At this point you should be able to run your build with no errors if configured correctly.
 
 ## Notes
 
@@ -57,3 +109,12 @@ This Terraform configuration automates the setup of a CICD pipeline using Jenkin
 - Adjust any IP addresses or paths as needed to match your specific setup.
 
 For more detailed instructions on setting up Jenkins, Docker, SonarQube, and the CICD pipeline, refer to the respective documentation for each tool.
+
+## Contributions
+
+Contributions to this project are welcome! If you find any issues or have suggestions for improvement, please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE). Feel free to modify and distribute it as needed.
+
