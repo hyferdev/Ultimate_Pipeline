@@ -1,6 +1,4 @@
-# Ultimate_Pipeline
-Jenkins and Argo CICD
-
+# Ultimate_Pipelin
 -- Working on adding load balancer and hosted zone to the configuration --
 
 This Terraform configuration automates the setup of a CICD pipeline using Jenkins, Docker, and SonarQube. The following steps outline how to finalize the setup:
