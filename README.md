@@ -1,7 +1,7 @@
 # Ultimate_Pipelin
 -- Working on adding load balancer and hosted zone to the configuration --
 
-This Terraform configuration automates the setup of a CICD pipeline using Jenkins, Docker, and SonarQube. *Not yet implemented - We will utilize ArgoCD to pull images to a Kubernetes cluster. The following steps outline how to finalize the setup:
+This Terraform configuration automates the setup of a CICD pipeline using Jenkins, Docker, and SonarQube. *Not yet implemented - We will utilize ArgoCD to pull images to a Kubernetes cluster. Credit to Abhishek Veeramalla (https://github.com/iam-veeramalla) for being the inspiration for the base of this project. The following steps outline how to finalize the setup:
 
 ## Prerequisites
 - Terraform installed on your local machine.
