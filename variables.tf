@@ -4,6 +4,12 @@ variable "region" {
   default     = "us-west-2"
 }
 
+variable "subnet_ids" {
+  description = Subnets used for auto-scaling group
+  type        = list(string)
+  default     = ["subnet-1", "subnet-2", "subnet-3"]
+}
+
 variable "zone_b" {
   description = "AWS Availability Zone"
   type        = string
@@ -42,4 +48,10 @@ variable "domain_name" {
   description = "The main domain name"
   type        = string
   default     = "desire-projects.com"
+}
+
+variable "min_max_size" {
+  description = "Minimum and maximum size for the Auto Scaling Group."
+  type        = tuple([number, number])
+  default     = [3, 5]
 }
