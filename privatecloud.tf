@@ -12,25 +12,36 @@ resource "aws_vpc" "cicd_vpc" {
 }
 
 # Subnet info
-resource "aws_subnet" "cicd_subnet" {
+resource "aws_subnet" "cicd_subnet_a" {
   cidr_block = "10.1.1.0/24"
   vpc_id     = aws_vpc.cicd_vpc.id
-  availability_zone = var.zone
+  availability_zone = us-west-2a
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "cicd_subnet"
+    Name = "cicd_subnet_a"
   }
 }
 
-resource "aws_subnet" "cicd_subnet_2" {
+resource "aws_subnet" "cicd_subnet_b" {
    cidr_block = "10.1.2.0/24"
    vpc_id     = aws_vpc.cicd_vpc.id
-   availability_zone = var.zone2
+   availability_zone = us-west-2b
    map_public_ip_on_launch = true
 
    tags = {
-     Name = "cicd_subnet_2"
+     Name = "cicd_subnet_b"
+   }
+}
+
+resource "aws_subnet" "cicd_subnet_c" {
+   cidr_block = "10.1.3.0/24"
+   vpc_id     = aws_vpc.cicd_vpc.id
+   availability_zone = us-west-2c
+   map_public_ip_on_launch = true
+
+   tags = {
+     Name = "cicd_subnet_c"
    }
 }
 
@@ -60,14 +71,17 @@ resource "aws_route" "cicd_route" {
 }
 
 # Associate route table with subnets
-resource "aws_route_table_association" "cicd_rta" {
-  subnet_id      = aws_subnet.cicd_subnet.id
+resource "aws_route_table_association" "cicd_rta_a" {
+  subnet_id      = aws_subnet.cicd_subnet_a.id
   route_table_id = aws_route_table.cicd_pub_rt.id
 }
 
-/* Future project
-resource "aws_route_table_association" "cicd_rta_2" {
-   subnet_id      = aws_subnet.cicd_subnet_2.id
+resource "aws_route_table_association" "cicd_rta_b" {
+   subnet_id      = aws_subnet.cicd_subnet_b.id
    route_table_id = aws_route_table.cicd_pub_rt.id
  }
-*/
+
+resource "aws_route_table_association" "cicd_rta_c" {
+   subnet_id      = aws_subnet.cicd_subnet_c.id
+   route_table_id = aws_route_table.cicd_pub_rt.id
+ }
