@@ -107,7 +107,6 @@ resource "aws_autoscaling_group" "cicd_asg" {
   ]
 }
 
-
 # Register instance to app load balancer
 resource "aws_lb_target_group_attachment" "jenkins_target_attachment" {
   target_group_arn = aws_lb_target_group.jenkins_8080.arn
