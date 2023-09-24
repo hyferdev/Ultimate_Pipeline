@@ -63,3 +63,9 @@ variable "min_max_size" {
   type        = tuple([number, number])
   default     = [3, 6]
 }
+
+variable "custom_tags" {
+  description = "Custom tags to apply to the Auto Scaling Group instances"
+  type        = list(map(string))
+  default     = []
+}
