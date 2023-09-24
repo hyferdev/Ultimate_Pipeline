@@ -109,16 +109,6 @@ resource "aws_autoscaling_group" "cicd_asg" {
     }
   }
 
-dynamic "custom_tag" {
-    for_each = var.custom_tags
-    content {
-      key                 = custom_tag.value["key"]
-      value               = custom_tag.value["value"]
-      propagate_at_launch = custom_tag.value["propagate_at_launch"]
-    }
-  }
-}
-
 # Register instance to app load balancer
 resource "aws_lb_target_group_attachment" "jenkins_target_attachment" {
   target_group_arn = aws_lb_target_group.jenkins_8080.arn
