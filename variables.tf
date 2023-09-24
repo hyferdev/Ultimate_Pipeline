@@ -7,9 +7,10 @@ variable "region" {
 variable "subnet_ids" {
   description = Subnets used for auto-scaling group
   type        = list(string)
-  default     = ["subnet-1", "subnet-2", "subnet-3"]
+  default     = ["aws_subnet.cicd_subnet_a.id", "aws_subnet.cicd_subnet_b.id", "aws_subnet.cicd_subnet_c.id"]
 }
 
+/*
 variable "zone_b" {
   description = "AWS Availability Zone"
   type        = string
@@ -21,6 +22,7 @@ variable "zone_a" {
    type        = string
    default     = "us-west-2a"
 }
+*/
 
 variable "instance_type" {
   description = "Instance CICD runs on (2 core min)"
