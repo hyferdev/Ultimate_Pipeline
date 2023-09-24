@@ -112,18 +112,18 @@ resource "aws_autoscaling_group" "cicd_asg" {
 # Register instance to app load balancer
 resource "aws_lb_target_group_attachment" "jenkins_target_attachment" {
   target_group_arn = aws_lb_target_group.jenkins_8080.arn
-  target_id        = aws_instance.cicd_instance.id
+  target_id        = aws_instance.cicd_asg.id
   port             = 8080
 }
 
 resource "aws_lb_target_group_attachment" "sonarqube_target_attachment" {
    target_group_arn = aws_lb_target_group.sonarqube_9000.arn
-   target_id        = aws_instance.cicd_instance.id
+   target_id        = aws_instance.cicd_asg.id
    port             = 9000
  }
 
 resource "aws_lb_target_group_attachment" "maven_target_attachment" {
    target_group_arn = aws_lb_target_group.maven_8010.arn
-   target_id        = aws_instance.cicd_instance.id
+   target_id        = aws_instance.cicd_asg.id
    port             = 8010
  }
