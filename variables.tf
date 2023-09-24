@@ -4,13 +4,13 @@ variable "region" {
   default     = "us-west-2"
 }
 
-variable "zone" {
+variable "zone_b" {
   description = "AWS Availability Zone"
   type        = string
   default     = "us-west-2b"
 }
 
-variable "zone2" {
+variable "zone_a" {
    description = "AWS Availability Zone"
    type        = string
    default     = "us-west-2a"
@@ -34,7 +34,6 @@ variable "keys" {
   default = "RedKeys"
 }
 
-/* Future project
 variable "hzoneid" {
   description = "Hosted Zone ID defined in Terraform Cloud"
 }
@@ -44,4 +43,3 @@ variable "domain_name" {
   type        = string
   default     = "desire-projects.com"
 }
-*/
