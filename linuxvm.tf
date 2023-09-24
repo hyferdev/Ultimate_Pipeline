@@ -98,13 +98,25 @@ resource "aws_autoscaling_group" "cicd_asg" {
   vpc_zone_identifier = var.subnet_ids
   load_balancers = [aws_lb.cicd_lb.arn]
 
-  tags = [
-    {
+  count = var.desired_capacity
+
+  dynamic "tag" {
+    for_each = range(var.desired_capacity)
+    content {
       key                 = "Name"
-      value               = "CICD-ASG"
+      value               = "CICD-${tag.key + 1}"
       propagate_at_launch = true
-    },
-  ]
+    }
+  }
+
+dynamic "custom_tag" {
+    for_each = var.custom_tags
+    content {
+      key                 = custom_tag.value["key"]
+      value               = custom_tag.value["value"]
+      propagate_at_launch = custom_tag.value["propagate_at_launch"]
+    }
+  }
 }
 
 # Register instance to app load balancer
