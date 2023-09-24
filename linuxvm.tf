@@ -86,7 +86,6 @@ resource "aws_launch_configuration" "cicd_launch_config" {
     rm sonarqube-9.4.0.54424.zip
     su sonarqube -c "/home/sonarqube/sonarqube-9.4.0.54424/bin/linux-x86-64/sonar.sh start"
     EOF
-  user_data_replace_on_change = true
 }
 
 # Create an Auto Scaling Group
