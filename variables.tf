@@ -52,8 +52,14 @@ variable "domain_name" {
   default     = "desire-projects.com"
 }
 
+variable "desired_capacity" {
+  description = "Desired number of instances for the Auto Scaling Group."
+  type        = number
+  default     = 3
+}
+
 variable "min_max_size" {
   description = "Minimum and maximum size for the Auto Scaling Group."
   type        = tuple([number, number])
-  default     = [3, 5]
+  default     = [3, 6]
 }
