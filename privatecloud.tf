@@ -15,7 +15,7 @@ resource "aws_vpc" "cicd_vpc" {
 resource "aws_subnet" "cicd_subnet_a" {
   cidr_block = "10.1.1.0/24"
   vpc_id     = aws_vpc.cicd_vpc.id
-  availability_zone = us-west-2a
+  availability_zone = "us-west-2a"
   map_public_ip_on_launch = true
 
   tags = {
@@ -26,7 +26,7 @@ resource "aws_subnet" "cicd_subnet_a" {
 resource "aws_subnet" "cicd_subnet_b" {
    cidr_block = "10.1.2.0/24"
    vpc_id     = aws_vpc.cicd_vpc.id
-   availability_zone = us-west-2b
+   availability_zone = "us-west-2b"
    map_public_ip_on_launch = true
 
    tags = {
@@ -37,7 +37,7 @@ resource "aws_subnet" "cicd_subnet_b" {
 resource "aws_subnet" "cicd_subnet_c" {
    cidr_block = "10.1.3.0/24"
    vpc_id     = aws_vpc.cicd_vpc.id
-   availability_zone = us-west-2c
+   availability_zone = "us-west-2c"
    map_public_ip_on_launch = true
 
    tags = {
