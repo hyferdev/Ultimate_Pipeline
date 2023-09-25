@@ -4,6 +4,10 @@ variable "region" {
   default     = "us-west-2"
 }
 
+data "aws_vpc" "default" {
+  default = true
+}
+
 /*
 variable "zone_b" {
   description = "AWS Availability Zone"
