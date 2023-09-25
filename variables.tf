@@ -4,12 +4,6 @@ variable "region" {
   default     = "us-west-2"
 }
 
-variable "subnet_ids" {
-  description = "Subnets used for auto-scaling group"
-  type        = list   
-  default     = [aws_subnet.cicd_subnet_a.id, aws_subnet.cicd_subnet_b.id, aws_subnet.cicd_subnet_c.id]
-}
-
 /*
 variable "zone_b" {
   description = "AWS Availability Zone"
