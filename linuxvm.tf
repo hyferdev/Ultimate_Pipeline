@@ -95,7 +95,7 @@ resource "aws_autoscaling_group" "cicd_asg" {
   desired_capacity = var.desired_capacity
   min_size = var.min_max_size[0]
   max_size = var.min_max_size[1]
-  vpc_zone_identifier = var.subnet_ids
+  vpc_zone_identifier = [aws_subnet.cicd_subnet_a.id, aws_subnet.cicd_subnet_b.id, aws_subnet.cicd_subnet_c.id]
   load_balancers = [aws_lb.cicd_lb.arn]
 
   dynamic "tag" {
