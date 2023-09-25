@@ -2,7 +2,7 @@
 resource "aws_security_group" "cicd_sg" {
   name        = "cicd_sg"
   description = "Allow traffic to ports 8080, 8010, & 9000"
-  vpc_id     = aws_vpc.cicd_vpc.id
+  vpc_id     = aws_vpc.default.id
 
   ingress {
     description = "Allow SSH from any IP"
