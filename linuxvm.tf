@@ -52,7 +52,8 @@ resource "aws_launch_configuration" "cicd_launch_config" {
   image_id = var.ami
   instance_type = var.instance_type
   key_name = var.keys
-  security_groups = [aws_security_group.cicd_sg_test.name]
+  vpc_id = aws_vpc.cicd_vpc.id
+  vpc_security_group_ids = [aws_security_group.cicd_sg_test.name]
 
   user_data = <<-EOF
     #!/bin/bash
