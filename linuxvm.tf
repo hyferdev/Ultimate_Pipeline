@@ -98,8 +98,6 @@ resource "aws_autoscaling_group" "cicd_asg" {
   vpc_zone_identifier = var.subnet_ids
   load_balancers = [aws_lb.cicd_lb.arn]
 
-  count = var.desired_capacity
-
   dynamic "tag" {
     for_each = range(var.desired_capacity)
     content {
@@ -108,6 +106,7 @@ resource "aws_autoscaling_group" "cicd_asg" {
       propagate_at_launch = true
     }
   }
+}
 
 # Register instance to app load balancer
 resource "aws_lb_target_group_attachment" "jenkins_target_attachment" {
