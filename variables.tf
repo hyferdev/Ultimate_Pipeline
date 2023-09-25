@@ -6,8 +6,8 @@ variable "region" {
 
 variable "subnet_ids" {
   description = "Subnets used for auto-scaling group"
-  type        = list(string)
-  default     = ["aws_subnet.cicd_subnet_a.id", "aws_subnet.cicd_subnet_b.id", "aws_subnet.cicd_subnet_c.id"]
+  type        = list   
+  default     = [aws_subnet.cicd_subnet_a.id, aws_subnet.cicd_subnet_b.id, aws_subnet.cicd_subnet_c.id]
 }
 
 /*
