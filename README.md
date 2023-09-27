@@ -1,4 +1,4 @@
-# Ultimate_Pipelin
+# Ultimate Pipeline
 -- Working on adding load balancer and hosted zone to the configuration --
 
 This Terraform configuration automates the setup of a CICD pipeline using Jenkins, Docker, and SonarQube. *Not yet implemented - We will utilize ArgoCD to pull images to a Kubernetes cluster. Credit to Abhishek Veeramalla (https://github.com/iam-veeramalla) for being the inspiration for the base of this project. The following steps outline how to finalize the setup:
@@ -8,6 +8,7 @@ This Terraform configuration automates the setup of a CICD pipeline using Jenkin
 - AWS CLI configured with the necessary credentials.
 - An EC2 instance where Jenkins, Docker, and SonarQube will be deployed.
 - A GitHub repository containing the code to be built and deployed.
+- A clone of Veeramalla's Jenkins-Zero-To-Hero project
 
 ## Terraform Deployment
 
@@ -82,6 +83,7 @@ When prompted, type `yes` to confirm the destruction. Be cautious, as this actio
 5. **Confirm SonarQube Installation:**
 
    Update SonarQube credentials at `<IP>:9000` (replace `<IP>` with your instance's IP address).
+   Update java-maven-sonar-argocd-helm-k8s/spring-boot-app/JenkinsFile with SonarQube IP
 
 6. **Confirm Maven Installation:**
 
@@ -97,7 +99,7 @@ When prompted, type `yes` to confirm the destruction. Be cautious, as this actio
 
    - Repo URL: `https://github.com/hyferdev/Jenkins-Zero-To-Hero`
    - Branch: `*/main`
-   - Jenkinsfile path: `java-maven-sonar-argocd-helm-k8s/spring-boot-app/Jenkinsfile`
+   - Jenkinsfile path: `java-maven-sonar-argocd-helm-k8s/spring-boot-app/JenkinsFile`
   
 Done! At this point you should be able to run your build with no errors if configured correctly.
 
