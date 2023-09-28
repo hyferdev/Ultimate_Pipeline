@@ -8,20 +8,6 @@ data "aws_vpc" "default" {
   default = true
 }
 
-/*
-variable "zone_b" {
-  description = "AWS Availability Zone"
-  type        = string
-  default     = "us-west-2b"
-}
-
-variable "zone_a" {
-   description = "AWS Availability Zone"
-   type        = string
-   default     = "us-west-2a"
-}
-*/
-
 variable "instance_type" {
   description = "Instance CICD runs on (2 core min)"
   type    = string

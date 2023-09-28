@@ -1,4 +1,3 @@
-/*
 # Create hosted subzone records, hzoneid is set in Terraform Cloud
 resource "aws_route53_record" "jenkis_record" {
   zone_id = var.hzoneid
@@ -35,4 +34,3 @@ resource "aws_route53_record" "maven_record" {
     evaluate_target_health = true
   }
 }
-*/

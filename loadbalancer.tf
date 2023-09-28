@@ -1,4 +1,3 @@
-/*
 # Create an application load balancer that listens on port 80
 resource "aws_lb" "cicd_lb" {
   name               = "cicd-lb"
@@ -130,4 +129,3 @@ resource "aws_lb_listener_rule" "maven_rule" {
     }
   }
 }
-*/
