@@ -1,131 +1,83 @@
-# Create an application load balancer that listens on port 80
-resource "aws_lb" "cicd_lb" {
-  name               = "cicd-lb"
+# Create Network Load Balancers for ports 8080, 8010, and 9000
+resource "aws_lb" "jenkins_nlb" {
+  name               = "jenkins-nlb"
   internal           = false
-  load_balancer_type = "application"
+  load_balancer_type = "network"
   subnets            = [aws_subnet.cicd_subnet_a.id, aws_subnet.cicd_subnet_b.id, aws_subnet.cicd_subnet_c.id]
   enable_deletion_protection = false
-  enable_http2 = true
 }
 
-resource "aws_lb_listener" "cicd_lb_listener" {
-  load_balancer_arn = aws_lb.cicd_lb.arn
+resource "aws_lb" "maven_nlb" {
+  name               = "maven-nlb"
+  internal           = false
+  load_balancer_type = "network"
+  subnets            = [aws_subnet.cicd_subnet_a.id, aws_subnet.cicd_subnet_b.id, aws_subnet.cicd_subnet_c.id]
+  enable_deletion_protection = false
+}
+
+resource "aws_lb" "sonarqube_nlb" {
+  name               = "sonarqube-nlb"
+  internal           = false
+  load_balancer_type = "network"
+  subnets            = [aws_subnet.cicd_subnet_a.id, aws_subnet.cicd_subnet_b.id, aws_subnet.cicd_subnet_c.id]
+  enable_deletion_protection = false
+}
+
+# Create load balancer listeners
+resource "aws_lb_listener" "jenkins_nlb_listener" {
+  load_balancer_arn = aws_lb.jenkins_nlb.arn
   port              = 80
-  protocol          = "HTTP"
+  protocol          = "TCP"
 
   default_action {
-    type             = "fixed-response"
-    fixed_response {
-      content_type    = "text/plain"
-      status_code     = "200"
-      message_body    = "OK"
-    }
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.jenkins_8080.arn
   }
 }
 
-# Create target groups for CICD services on ports 8080, 8010, and 9000
+resource "aws_lb_listener" "maven_nlb_listener" {
+  load_balancer_arn = aws_lb.maven_nlb.arn
+  port              = 80
+  protocol          = "TCP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.maven_8010.arn
+  }
+}
+
+resource "aws_lb_listener" "sonarqube_nlb_listener" {
+  load_balancer_arn = aws_lb.sonarqube_nlb.arn
+  port              = 80
+  protocol          = "TCP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.sonarqube_9000.arn
+  }
+}
+
+# Create target groups for the NLBs
 resource "aws_lb_target_group" "jenkins_8080" {
   name        = "jenkins-8080"
   port        = 8080
-  protocol    = "HTTP"
+  protocol    = "TCP"
   target_type = "instance"
   vpc_id      = aws_vpc.cicd_vpc.id
-
-  health_check {
-    enabled             = true
-    interval            = 30
-    matcher             = "200-399"
-    path                = "/"
-    port                = 8080
-    protocol            = "HTTP"
-    timeout             = 5
-    unhealthy_threshold = 2
-  }
-}
-
-resource "aws_lb_target_group" "sonarqube_9000" {
-  name        = "sonarqube-9000"
-  port        = 9000
-  protocol    = "HTTP"
-  target_type = "instance"
-  vpc_id      = aws_vpc.cicd_vpc.id
-
-  health_check {
-    enabled             = true
-    interval            = 30
-    matcher             = "200-399"
-    path                = "/"
-    port                = 9000
-    protocol            = "HTTP"
-    timeout             = 5
-    unhealthy_threshold = 2
-  }
 }
 
 resource "aws_lb_target_group" "maven_8010" {
   name        = "maven-8010"
   port        = 8010
-  protocol    = "HTTP"
+  protocol    = "TCP"
   target_type = "instance"
   vpc_id      = aws_vpc.cicd_vpc.id
-
-  health_check {
-    enabled             = true
-    interval            = 30
-    matcher             = "200-399"
-    path                = "/"
-    port                = 8010
-    protocol            = "HTTP"
-    timeout             = 5
-    unhealthy_threshold = 2
-  }
 }
 
-#Create listener rule to route hosted subzone traffic to ports
-resource "aws_lb_listener_rule" "jenkins_rule" {
-  listener_arn = aws_lb_listener.cicd_lb_listener.arn
-  priority     = 100
-
-  action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.jenkins_8080.arn
-  }
-
-  condition {
-    host_header {
-      values = ["jenkins.${var.domain_name}"]
-    }
-  }
-}
-
-resource "aws_lb_listener_rule" "sonarqube_rule" {
-  listener_arn = aws_lb_listener.cicd_lb_listener.arn
-  priority     = 200
-
-  action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.sonarqube_9000.arn
-  }
-
-  condition {
-    host_header {
-      values = ["sonarqube.${var.domain_name}"]
-    }
-  }
-}
-
-resource "aws_lb_listener_rule" "maven_rule" {
-  listener_arn = aws_lb_listener.cicd_lb_listener.arn
-  priority     = 300
-
-  action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.maven_8010.arn
-  }
-
-  condition {
-    host_header {
-      values = ["maven.${var.domain_name}"]
-    }
-  }
+resource "aws_lb_target_group" "sonarqube_9000" {
+  name        = "sonarqube-9000"
+  port        = 9000
+  protocol    = "TCP"
+  target_type = "instance"
+  vpc_id      = aws_vpc.cicd_vpc.id
 }

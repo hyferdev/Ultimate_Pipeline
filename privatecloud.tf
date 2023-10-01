@@ -79,9 +79,9 @@ resource "aws_route_table_association" "cicd_rta_a" {
 resource "aws_route_table_association" "cicd_rta_b" {
    subnet_id      = aws_subnet.cicd_subnet_b.id
    route_table_id = aws_route_table.cicd_pub_rt.id
- }
+}
 
 resource "aws_route_table_association" "cicd_rta_c" {
    subnet_id      = aws_subnet.cicd_subnet_c.id
    route_table_id = aws_route_table.cicd_pub_rt.id
- }
+}

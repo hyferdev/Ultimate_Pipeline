@@ -82,13 +82,10 @@ resource "aws_autoscaling_group" "cicd_asg" {
   vpc_zone_identifier = [aws_subnet.cicd_subnet_a.id, aws_subnet.cicd_subnet_b.id, aws_subnet.cicd_subnet_c.id]
   target_group_arns = [aws_lb_target_group.jenkins_8080.arn, aws_lb_target_group.maven_8010.arn, aws_lb_target_group.sonarqube_9000.arn]
 
-  dynamic "tag" {
-    for_each = range(999)
-    content {
-      key                 = "Name"
-      value               = "CICD-${tag.key + 1}"
-      propagate_at_launch = true
-    }
+  tag {
+    key                 = "Name"
+    value               = "CICD"
+    propagate_at_launch = true
   }
 }
 
