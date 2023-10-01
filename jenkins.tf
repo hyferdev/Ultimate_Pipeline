@@ -1,6 +1,6 @@
 #Create the launch template for your Auto Scale Group
 resource "aws_launch_template" "cicd_launch_template" {
-  name_prefix = "CICD-"
+  name = "Jenkins"
   image_id = var.ami
 
   block_device_mappings {
@@ -71,7 +71,7 @@ resource "aws_launch_template" "cicd_launch_template" {
 
 #Create your Auto Scale Group
 resource "aws_autoscaling_group" "cicd_asg" {
-  name = "CICD-ASG"
+  name = "Jenkins-ASG"
   launch_template {
     id = aws_launch_template.cicd_launch_template.id
     version = aws_launch_template.cicd_launch_template.latest_version
@@ -84,7 +84,7 @@ resource "aws_autoscaling_group" "cicd_asg" {
 
   tag {
     key                 = "Name"
-    value               = "CICD"
+    value               = "Jenkins"
     propagate_at_launch = true
   }
 }
