@@ -1,5 +1,5 @@
 # Create our ArgoCD instance
-resource "aws_instance" "cicd_instance" {
+resource "aws_instance" "argo_instance" {
   ami = var.ami
   subnet_id = aws_subnet.cicd_subnet_a.id
   associate_public_ip_address = true
@@ -21,11 +21,14 @@ resource "aws_instance" "cicd_instance" {
     sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
     sudo apt install docker-ce -y
     sudo systemctl enable --now docker
-    sudo useradd -m k8svc
+    sudo useradd k8svc -s /bin/bash -m
     sudo usermod -aG docker k8svc && newgrp docker
     su k8svc -c 'minikube start'
     su k8svc -c 'curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.25.0/install.sh | bash -s v0.25.0'
     su k8svc -c 'kubectl create -f https://operatorhub.io/install/argocd-operator.yaml'
+    git clone https://github.com/hyferdev/argocd-basic.git && chmod +r argocd-basic
+    su k8svc -c 'kubectl apply -f argocd-basic/argocd-basic.yml'
+    su k8svc -c 'kubectl patch svc argocd-server -p '{"spec": {"type": "NodePort"}}''
     EOF
   user_data_replace_on_change = true
   tags = {
