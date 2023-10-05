@@ -8,7 +8,7 @@ This Terraform configuration automates the setup of a CICD pipeline using Jenkin
 - AWS CLI configured with the necessary credentials.
 - An EC2 instance where Jenkins, Docker, and SonarQube will be deployed.
 - A GitHub repository containing the code to be built and deployed.
-- A clone of Veeramalla's Jenkins-Zero-To-Hero project
+- A clone/fork of my iteration of Jenkins-Zero-To-Hero project
 
 ## Terraform Deployment
 
