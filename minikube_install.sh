@@ -13,4 +13,4 @@
     sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
     sudo apt install docker-ce -y
     sudo systemctl enable --now docker
-    sudo usermod -aG docker ${k8svc} && newgrp docker
+    sudo groupadd docker && usermod -aG docker ${k8svc}
