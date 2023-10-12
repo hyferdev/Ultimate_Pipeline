@@ -39,11 +39,11 @@ variable "domain_name" {
 variable "desired_capacity" {
   description = "Desired number of instances for the Auto Scaling Group."
   type        = number
-  default     = 3
+  default     = 1
 }
 
 variable "min_max_size" {
   description = "Minimum and maximum size for the Auto Scaling Group."
   type        = tuple([number, number])
-  default     = [3, 6]
+  default     = [1, 6]
 }

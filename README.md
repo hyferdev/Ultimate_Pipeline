@@ -1,10 +1,10 @@
-# Ultimate Pipeline
--- Working on adding load balancer and hosted zone to the configuration --
+# Ultimate CICD Pipeline
+![228301952-abc02ca2-9942-4a67-8293-f76647b6f9d8 (1)](https://github.com/hyferdev/Ultimate_Pipeline/assets/125156467/3551a44b-321a-497e-ba73-b81c714d316c)
 
-This Terraform configuration automates the setup of a CICD pipeline using Jenkins, Docker, and SonarQube. *Not yet implemented - We will utilize ArgoCD to pull images to a Kubernetes cluster. Credit to Abhishek Veeramalla (https://github.com/iam-veeramalla) for being the inspiration for the base of this project. The following steps outline how to finalize the setup:
+This Terraform configuration automates the setup of a CICD pipeline using Jenkins, Docker, and SonarQube. *Not yet implemented - We will utilize ArgoCD to pull images to a Kubernetes cluster. Credit to Abhishek Veeramalla (https://github.com/iam-veeramalla) for the initial Jenkins config file. The following steps outline how to finalize the setup:
 
 ## Prerequisites
-- Terraform installed on your local machine.
+- Terraform installed and connected to TF Cloud
 - AWS CLI configured with the necessary credentials.
 - An EC2 instance where Jenkins, Docker, and SonarQube will be deployed.
 - A GitHub repository containing the code to be built and deployed.
@@ -24,7 +24,7 @@ This Terraform configuration automates the setup of a CICD pipeline using Jenkin
    cd Ultimate_Pipeline
    ```
 
-3. Review the Terraform configuration files in the `terraform` directory. Modify the files as per your requirements, such as the cloud provider, region, cluster size, or any other desired configuration.
+3. Review the Terraform configuration files in the `terraform` directory. Modify the files as per your requirements, such as the cloud provider, region, cluster size, or any other desired configuration. Add hzoneid terraform variable to your terraform cloud workspace with your hosted zone id as the variable.
 
 4. Initialize Terraform and download the necessary provider plugins:
 
