@@ -45,5 +45,5 @@ variable "desired_capacity" {
 variable "min_max_size" {
   description = "Minimum and maximum size for the Auto Scaling Group."
   type        = tuple([number, number])
-  default     = [3, 6]
+  default     = [1, 6]
 }

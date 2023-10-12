@@ -64,6 +64,9 @@ resource "aws_lb_target_group" "jenkins_8080" {
   protocol    = "TCP"
   target_type = "instance"
   vpc_id      = aws_vpc.cicd_vpc.id
+  stickiness {
+    type = "source_ip"
+  }
 }
 
 resource "aws_lb_target_group" "maven_8010" {
@@ -72,6 +75,9 @@ resource "aws_lb_target_group" "maven_8010" {
   protocol    = "TCP"
   target_type = "instance"
   vpc_id      = aws_vpc.cicd_vpc.id
+  stickiness {
+    type = "source_ip"
+  }
 }
 
 resource "aws_lb_target_group" "sonarqube_9000" {
@@ -80,4 +86,7 @@ resource "aws_lb_target_group" "sonarqube_9000" {
   protocol    = "TCP"
   target_type = "instance"
   vpc_id      = aws_vpc.cicd_vpc.id
+  stickiness {
+    type = "source_ip"
+  }
 }
