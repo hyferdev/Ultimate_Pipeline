@@ -1,18 +1,18 @@
 # Ultimate Pipeline
 ![228301952-abc02ca2-9942-4a67-8293-f76647b6f9d8 (1)](https://github.com/hyferdev/Ultimate_Pipeline/assets/125156467/7f7aa554-bd78-430e-804d-fff14e29718f)
 
-This Terraform configuration automates the setup of a CICD pipeline using Jenkins, Docker, and SonarQube. We are utilizing ArgoCD to pull images to a Kubernetes cluster. Credit to Abhishek Veeramalla (https://github.com/iam-veeramalla) for the initial Jenkins config files. The following steps outline how to finalize the setup:
+This Terraform configuration automates the setup of a CICD pipeline using Jenkins, Docker, and SonarQube. We are utilizing ArgoCD to pull images to a Kubernetes cluster. Credit to [Abhishek Veeramalla](https://github.com/iam-veeramalla) for the initial Jenkins config files. The following steps outline how to finalize the setup:
 
-## Prerequisites
+**Click the headers for a step-by-step youtube video**
+
+## [Prerequisites](https://youtu.be/IkYkUJjqqqA?si=gFHXAX2JPATWknC1)
 - Terraform installed on your local machine.
 - AWS CLI configured with the necessary credentials.
 - An EC2 instance where Jenkins, Docker, and SonarQube will be deployed.
 - A GitHub repository containing the code to be built and deployed.
 - A clone/fork of my iteration of Jenkins-Zero-To-Hero project
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/IkYkUJjqqqA?si=p5G44XhgpM6mvcKh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-## Terraform Deployment
+#### Terraform Deployment
 
 1. Clone this repository to your local machine:
 
@@ -51,7 +51,7 @@ This Terraform configuration automates the setup of a CICD pipeline using Jenkin
 
    Confirm the deployment by typing `yes` when prompted. The provisioning process may take several minutes, depending on your infrastructure size.
 
-## Cleaning Up
+#### Cleaning Up
 
 To remove the Jenkins VM and associated resources, you can use Terraform to destroy the infrastructure:
 
@@ -62,7 +62,7 @@ terraform destroy
 When prompted, type `yes` to confirm the destruction. Be cautious, as this action is irreversible and will delete all resources created by Terraform.
 
 
-## Jenkins Steps
+## [Jenkins Steps](https://youtu.be/lKJZAWns-FI?si=KEx5SBHAeiCMBVx_)
 
 1. **Create Admin Account in Jenkins:**
 
@@ -105,7 +105,7 @@ When prompted, type `yes` to confirm the destruction. Be cautious, as this actio
   
 Done! At this point you should be able to run your build with no errors if configured correctly.
 
-## ArgoCD Steps
+## [ArgoCD Steps](https://youtu.be/RMjnkyB6EJs?si=2mZBDAcOSrRx1vcJ)
 
 1. **Run the Minikube installation script and provide a username for managing Minikube:**
 
@@ -135,13 +135,13 @@ minikube service argocd-server &
 
 6. **Configure a new app in ArgoCD with the following configs(Any name can be used and namespace has to already exists):**
 
-Name: hyfer
-Project Name: default
-Sync: Automatic
-URL: https://github.com/hyferdev/Jenkins-Zero-To-Hero
-Path: java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests
-Cluster URL: default
-Namespace: default
+- **Name:** hyfer
+- **Project Name:** default
+- **Sync:** Automatic
+- **URL:** [https://github.com/hyferdev/Jenkins-Zero-To-Hero](https://github.com/hyferdev/Jenkins-Zero-To-Hero)
+- **Path:** java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests
+- **Cluster URL:** default
+- **Namespace:** default
 
 **Done! You've now set up ArgoCD to manage your Kubernetes cluster.**
 
