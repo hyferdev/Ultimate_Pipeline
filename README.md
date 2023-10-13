@@ -10,6 +10,8 @@ This Terraform configuration automates the setup of a CICD pipeline using Jenkin
 - A GitHub repository containing the code to be built and deployed.
 - A clone/fork of my iteration of Jenkins-Zero-To-Hero project
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IkYkUJjqqqA?si=p5G44XhgpM6mvcKh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## Terraform Deployment
 
 1. Clone this repository to your local machine:
