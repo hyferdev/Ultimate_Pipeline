@@ -1,5 +1,4 @@
 # Ultimate Pipeline
-<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=6-xyzejxrhZickfK&amp;list=PLwySPfR0MU0XO0F801vGILTw5HYcev8YQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 ![228301952-abc02ca2-9942-4a67-8293-f76647b6f9d8 (1)](https://github.com/hyferdev/Ultimate_Pipeline/assets/125156467/7f7aa554-bd78-430e-804d-fff14e29718f)
 
 This Terraform configuration automates the setup of a CICD pipeline using Jenkins, Docker, and SonarQube. We are utilizing ArgoCD to pull images to a Kubernetes cluster. Credit to Abhishek Veeramalla (https://github.com/iam-veeramalla) for the initial Jenkins config files. The following steps outline how to finalize the setup:
