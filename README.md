@@ -1,10 +1,11 @@
-# Ultimate CICD Pipeline
-![228301952-abc02ca2-9942-4a67-8293-f76647b6f9d8 (1)](https://github.com/hyferdev/Ultimate_Pipeline/assets/125156467/3551a44b-321a-497e-ba73-b81c714d316c)
+# Ultimate Pipeline
+<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=6-xyzejxrhZickfK&amp;list=PLwySPfR0MU0XO0F801vGILTw5HYcev8YQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+![228301952-abc02ca2-9942-4a67-8293-f76647b6f9d8 (1)](https://github.com/hyferdev/Ultimate_Pipeline/assets/125156467/7f7aa554-bd78-430e-804d-fff14e29718f)
 
-This Terraform configuration automates the setup of a CICD pipeline using Jenkins, Docker, and SonarQube. *Not yet implemented - We will utilize ArgoCD to pull images to a Kubernetes cluster. Credit to Abhishek Veeramalla (https://github.com/iam-veeramalla) for the initial Jenkins config file. The following steps outline how to finalize the setup:
+This Terraform configuration automates the setup of a CICD pipeline using Jenkins, Docker, and SonarQube. We are utilizing ArgoCD to pull images to a Kubernetes cluster. Credit to Abhishek Veeramalla (https://github.com/iam-veeramalla) for the initial Jenkins config files. The following steps outline how to finalize the setup:
 
 ## Prerequisites
-- Terraform installed and connected to TF Cloud
+- Terraform installed on your local machine.
 - AWS CLI configured with the necessary credentials.
 - An EC2 instance where Jenkins, Docker, and SonarQube will be deployed.
 - A GitHub repository containing the code to be built and deployed.
@@ -24,7 +25,7 @@ This Terraform configuration automates the setup of a CICD pipeline using Jenkin
    cd Ultimate_Pipeline
    ```
 
-3. Review the Terraform configuration files in the `terraform` directory. Modify the files as per your requirements, such as the cloud provider, region, cluster size, or any other desired configuration. Add hzoneid terraform variable to your terraform cloud workspace with your hosted zone id as the variable.
+3. Review the Terraform configuration files in the `terraform` directory. Modify the files as per your requirements, such as the cloud provider, region, cluster size, or any other desired configuration.
 
 4. Initialize Terraform and download the necessary provider plugins:
 
@@ -102,6 +103,46 @@ When prompted, type `yes` to confirm the destruction. Be cautious, as this actio
    - Jenkinsfile path: `java-maven-sonar-argocd-helm-k8s/spring-boot-app/JenkinsFile`
   
 Done! At this point you should be able to run your build with no errors if configured correctly.
+
+## ArgoCD Steps
+
+1. **Run the Minikube installation script and provide a username for managing Minikube:**
+
+```bash
+./minikube_install.sh
+```
+
+2. **Start Minikube:**
+
+```bash
+minikube start
+```
+
+3. **Run the ArgoCD operators installation script. It will provide the initial ArgoCD password:**
+
+```bash
+./argocd_install.sh
+```
+
+4. **Expose ArgoCD ports to connect locally:**
+
+```bash
+minikube service argocd-server &
+```
+
+5. **Open a web browser on the same subnet and access the ArgoCD URL. Sign in with the default username "admin" and the password received from the ArgoCD installation.**
+
+6. **Configure a new app in ArgoCD with the following configs(Any name can be used and namespace has to already exists):**
+
+Name: hyfer
+Project Name: default
+Sync: Automatic
+URL: https://github.com/hyferdev/Jenkins-Zero-To-Hero
+Path: java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests
+Cluster URL: default
+Namespace: default
+
+**Done! You've now set up ArgoCD to manage your Kubernetes cluster.**
 
 ## Notes
 
