@@ -15,7 +15,7 @@ variable "instance_type" {
 }
 
 variable "ami" {
-  description = "AMI for CICD isntance"
+  description = "us-west-2 Ubuntu AMI"
   type    = string
   default = "ami-03f65b8614a860c29"
 }
